@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design with AI — Hackathon Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  /* ========================================
+     PA2.0 (Ocean Toolkit) Design Tokens — Dark Theme
+     ======================================== */
+  :root {
+    /* Primary Shades */
+    --color-primary-90: #000A14;
+    --color-primary-80: #001730;
+    --color-primary-70: #0059B8;
+    --color-primary-60: #5CABFF;
+    --color-primary-30: #C2DFFF;
+    --color-primary-20: #F0F1FA;
+    --color-primary-10: #F6F7FC;
+
+    /* Secondary (Teal) */
+    --color-secondary-dark: #25A7A1;
+    --color-secondary-medium: #4AD7D1;
+    --color-secondary-light: #8AE5E1;
+    --color-secondary-translucent: rgba(74, 215, 209, 0.3);
+
+    /* Tertiary (Orange-Red) */
+    --color-tertiary-dark: #F53900;
+    --color-tertiary-medium: #FF6A3D;
+    --color-tertiary-light: #FFB199;
+    --color-tertiary-translucent: rgba(255, 106, 61, 0.3);
+
+    /* Grey */
+    --color-grey-90: #001730;
+    --color-grey-80: #575C64;
+    --color-grey-70: #8D939D;
+    --color-grey-60: #BDC4D0;
+    --color-grey-50: #D7DEE9;
+    --color-grey-40: #F0F2F5;
+    --color-grey-0: #FFFFFF;
+
+    /* Status */
+    --info-dark: #0059B8;
+    --info-muted-dark: #ADD5FF;
+    --info-muted-med: #D4E9FF;
+    --info-muted-light: #EEF6FF;
+    --warning-dark: #EB9C00;
+    --warning-muted-dark: #FFB547;
+    --warning-muted-med: #FFDD96;
+    --warning-muted-light: #FFF0D0;
+    --success-dark: #1A7F5A;
+    --success-muted-med: #68DEB3;
+    --success-muted-dark: #00AF70;
+    --success-muted-light: #E0F5EC;
+    --destructive-dark: #890627;
+    --destructive-muted-dark: #CE0D3D;
+    --destructive-muted-med: #FE8EAA;
+    --destructive-muted-light: #FFE1E9;
+
+    /* ---- Dark Theme Semantic Tokens ---- */
+    --bg-page: #000A14;
+    --bg-surface: #001730;
+    --bg-surface-raised: #002040;
+    --bg-surface-elevated: #002850;
+
+    --text-primary: #E8EDF5;
+    --text-secondary: #8D939D;
+    --text-muted: #575C64;
+    --text-on-accent: #000A14;
+
+    --border-default: rgba(92, 171, 255, 0.15);
+    --border-strong: rgba(92, 171, 255, 0.25);
+    --border-accent: var(--color-secondary-medium);
+
+    /* Accent colors mapped from PA2.0 */
+    --accent: var(--color-secondary-medium);
+    --accent-dark: var(--color-secondary-dark);
+    --accent-light: var(--color-secondary-light);
+    --accent-glow: rgba(74, 215, 209, 0.12);
+
+    --blue: var(--color-primary-60);
+    --blue-glow: rgba(92, 171, 255, 0.12);
+    --orange: var(--color-tertiary-medium);
+    --orange-glow: rgba(255, 106, 61, 0.12);
+    --green: var(--success-muted-dark);
+    --green-glow: rgba(0, 175, 112, 0.12);
+    --yellow: var(--warning-muted-dark);
+    --yellow-glow: rgba(255, 181, 71, 0.12);
+    --pink: var(--destructive-muted-med);
+    --pink-glow: rgba(254, 142, 170, 0.12);
+
+    /* Shadows */
+    --shadow-card: 0 0 24px rgba(0, 10, 20, 0.4);
+    --shadow-card-hover: 0 0 32px rgba(0, 10, 20, 0.6);
+
+    /* Typography */
+    --font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+
+    /* Spacing */
+    --space-1: 2px;
+    --space-2: 4px;
+    --space-3: 6px;
+    --space-4: 8px;
+    --space-5: 10px;
+    --space-6: 12px;
+    --space-7: 16px;
+    --space-8: 24px;
+    --space-9: 32px;
+    --space-10: 48px;
+
+    /* Radius */
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-pill-sm: 16px;
+    --radius-pill-md: 20px;
+    --radius-pill-lg: 24px;
+
+    /* Motion */
+    --duration-fast: 80ms;
+    --duration-standard: 120ms;
+    --duration-panel: 300ms;
+    --ease-default: ease;
+  }
+
+  /* ========================================
+     RESET & BASE
+     ======================================== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-family);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-primary);
+    background: var(--bg-page);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========================================
+     HERO
+     ======================================== */
+  .hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--blue-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-8);
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    max-width: 760px;
+    letter-spacing: -1px;
+    color: var(--color-grey-0);
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin-top: var(--space-8);
+  }
+
+  /* ========================================
+     LOOP DIAGRAM
+     ======================================== */
+  .loop-section {
+    padding: 60px 48px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .loop-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: var(--space-10) var(--space-8);
+    flex-wrap: wrap;
+  }
+
+  .loop-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    min-width: 140px;
+  }
+
+  .loop-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    border: 2px solid;
+    position: relative;
+    transition: transform var(--duration-panel) var(--ease-default),
+                box-shadow var(--duration-panel) var(--ease-default);
+  }
+
+  .loop-step a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .loop-step a:hover .loop-icon {
+    transform: scale(1.12);
+    box-shadow: 0 0 24px rgba(74, 215, 209, 0.15);
+  }
+
+  .loop-step a:hover .loop-label {
+    color: var(--text-primary);
+  }
+
+  .loop-step:nth-child(1) .loop-icon { background: var(--orange-glow); border-color: var(--orange); color: var(--orange); }
+  .loop-step:nth-child(3) .loop-icon { background: var(--blue-glow); border-color: var(--blue); color: var(--blue); }
+  .loop-step:nth-child(5) .loop-icon { background: var(--green-glow); border-color: var(--green); color: var(--green); }
+  .loop-step:nth-child(7) .loop-icon { background: var(--yellow-glow); border-color: var(--yellow); color: var(--yellow); }
+  .loop-step:nth-child(9) .loop-icon { background: rgba(92, 171, 255, 0.12); border-color: var(--color-primary-60); color: var(--color-primary-60); }
+
+  .loop-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .loop-arrow {
+    font-size: 20px;
+    color: var(--text-muted);
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .loop-back-arrow {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-primary-60);
+    margin-top: var(--space-6);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* ========================================
+     SECTIONS
+     ======================================== */
+  .section {
+    padding: 80px 48px;
+    border-top: 1px solid var(--border-default);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-number {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  .section h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: var(--space-4);
+    color: var(--color-grey-0);
+  }
+
+  .section-intro {
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  /* ========================================
+     CARDS
+     ======================================== */
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    padding: var(--space-9);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--duration-panel) var(--ease-default);
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    margin-bottom: var(--space-7);
+  }
+
+  .card-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-sm);
+  }
+
+  .badge-prompt { background: var(--accent-glow); color: var(--accent); }
+  .badge-tip { background: var(--green-glow); color: var(--green); }
+  .badge-warning { background: var(--yellow-glow); color: var(--yellow); }
+  .badge-template { background: var(--blue-glow); color: var(--blue); }
+
+  .card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--space-6);
+    color: var(--color-grey-0);
+  }
+
+  /* ========================================
+     PROMPT BLOCKS
+     ======================================== */
+  .prompt-wrap {
+    margin: var(--space-7) 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1.5px solid rgba(74, 215, 209, 0.25);
+    background: var(--bg-surface-raised);
+    position: relative;
+  }
+
+  .prompt-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(74, 215, 209, 0.08);
+    padding: var(--space-5) 20px;
+    border-bottom: 1px solid rgba(74, 215, 209, 0.15);
+  }
+
+  .prompt-title-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .prompt-title-icon {
+    width: 20px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--text-on-accent);
+    font-weight: 700;
+  }
+
+  .prompt-title-text {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .prompt-block {
+    background: transparent;
+    border: none;
+    padding: 20px var(--space-8);
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+  }
+
+  .prompt-block .placeholder {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .prompt-label { display: none; }
+
+  .copy-btn {
+    background: rgba(74, 215, 209, 0.12);
+    border: 1px solid rgba(74, 215, 209, 0.25);
+    color: var(--accent);
+    font-family: var(--font-family);
+    font-size: 11px;
+    font-weight: 700;
+    padding: var(--space-2) 14px;
+    border-radius: var(--radius-pill-sm);
+    cursor: pointer;
+    transition: all var(--duration-standard) var(--ease-default);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .copy-btn:hover {
+    background: rgba(74, 215, 209, 0.2);
+    border-color: var(--accent);
+  }
+
+  /* ========================================
+     PRO TIP CALLOUT
+     ======================================== */
+  .pro-tip {
+    background: rgba(0, 175, 112, 0.06);
+    border: 1px solid rgba(0, 175, 112, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 20px var(--space-8);
+    margin: 20px 0;
+  }
+
+  .pro-tip-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: var(--space-4);
+  }
+
+  .pro-tip p {
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ========================================
+     WARNING CALLOUT
+     ======================================== */
+  .warning {
+    background: rgba(255, 181, 71, 0.06);
+    border: 1px solid rgba(255, 181, 71, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 20px var(--space-8);
+    margin: 20px 0;
+  }
+
+  .warning-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: var(--space-4);
+  }
+
+  .warning p {
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ========================================
+     GRID
+     ======================================== */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  /* ========================================
+     STEP ROWS
+     ======================================== */
+  .step-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .step-num {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .step-num.orange { background: var(--orange-glow); color: var(--orange); }
+  .step-num.blue { background: var(--blue-glow); color: var(--blue); }
+  .step-num.green { background: var(--green-glow); color: var(--green); }
+  .step-num.yellow { background: var(--yellow-glow); color: var(--yellow); }
+  .step-num.purple { background: rgba(92, 171, 255, 0.12); color: var(--color-primary-60); }
+
+  .step-content h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    color: var(--color-grey-0);
+  }
+
+  .step-content p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ========================================
+     TIME BADGE
+     ======================================== */
+  .time-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--pink);
+    background: var(--pink-glow);
+    padding: var(--space-2) var(--space-6);
+    border-radius: var(--radius-pill-md);
+    margin-bottom: 20px;
+  }
+
+  /* ========================================
+     DIVIDER
+     ======================================== */
+  .divider {
+    border: none;
+    height: 1px;
+    background: var(--border-default);
+    margin: 40px 0;
+  }
+
+  /* ========================================
+     FOOTER
+     ======================================== */
+  .footer {
+    padding: var(--space-10) var(--space-10);
+    border-top: 1px solid var(--border-default);
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer span { color: var(--accent); font-weight: 600; }
+
+  /* ========================================
+     SECTION WITH BG (Timeline)
+     ======================================== */
+  .section-bg {
+    background: var(--bg-surface);
+    border-radius: 0;
+  }
+
+  /* ========================================
+     RESPONSIVE
+     ======================================== */
+  @media (max-width: 768px) {
+    .hero, .section, .loop-section { padding-left: 24px; padding-right: 24px; }
+    .loop-visual { flex-direction: column; gap: 8px; }
+    .loop-arrow { transform: rotate(90deg); min-width: unset; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .card { padding: var(--space-8); }
+  }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .card { border: 1px solid #ddd; }
+    .prompt-block { border-left-color: #333; background: #f5f5f5; }
+    .copy-btn { display: none; }
+  }
+
+  /* ========================================
+     UTILITIES
+     ======================================== */
+  strong { color: var(--color-grey-0); }
+  em { color: var(--text-primary); font-style: italic; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- =================== HERO =================== -->
+<header class="hero">
+  <div class="hero-label">Hackathon Design Playbook</div>
+  <h1>Design with <span>AI.</span><br>No design skills needed.</h1>
+  <p class="hero-sub">A fast, repeatable loop for anyone — no design background needed — to go from problem to polished product in a two-day hackathon. Just copy the AI prompts and follow the steps.</p>
+</header>
+
+<!-- =================== LOOP VISUAL =================== -->
+<section class="loop-section">
+  <div class="loop-visual">
+    <div class="loop-step">
+      <a href="#step1">
+        <div class="loop-icon">1</div>
+        <div class="loop-label">Problem</div>
+      </a>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step">
+      <a href="#step2">
+        <div class="loop-icon">2</div>
+        <div class="loop-label">Solution</div>
+      </a>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step">
+      <a href="#step3">
+        <div class="loop-icon">3</div>
+        <div class="loop-label">Prototype</div>
+      </a>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step">
+      <a href="#step4">
+        <div class="loop-icon">4</div>
+        <div class="loop-label">Test</div>
+      </a>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step">
+      <a href="#step5">
+        <div class="loop-icon">5</div>
+        <div class="loop-label">Learn</div>
+      </a>
+    </div>
+  </div>
+  <div class="loop-back-arrow">← ← ← LOOP BACK AND IMPROVE → → →</div>
+</section>
+
+
+<!-- =================== STEP 1: PROBLEM =================== -->
+<section class="section" id="step1">
+  <div class="section-number">Step 01 — Frame</div>
+  <h2>Problem Statement</h2>
+  <p class="section-intro">Before you design anything, get crystal clear on what you're solving. A sharp problem statement stops you from building the wrong thing. Spend 15 minutes here — it saves hours later.</p>
+
+  <div class="time-badge">⏱ 15 minutes</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-template">Fill-in Template</span>
+    </div>
+    <h3>The One-Liner Formula</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">Complete this sentence as a team. Write it on a sticky note. Everything you build should trace back to it.</p>
+    <div class="prompt-block"><span class="placeholder">[Type of user]</span> needs a way to <span class="placeholder">[do something]</span>
+because <span class="placeholder">[reason / pain point]</span>.</div>
+    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 12px;"><strong>Example:</strong> "Remote team leads need a way to check project status in under 30 seconds because switching between five tools wastes 20 minutes every morning."</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-prompt">AI Prompt</span>
+    </div>
+    <h3>Sharpen Your Problem with AI</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 12px;">If your problem feels vague, paste this into Claude or ChatGPT to tighten it up.</p>
+    <div class="prompt-wrap">
+    <div class="prompt-title-bar">
+      <div class="prompt-title-left">
+        <div class="prompt-title-icon">⌘</div>
+        <span class="prompt-title-text">Copy this prompt → Paste into AI</span>
+      </div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-block">I'm building a product in a 2-day hackathon. Here's my rough problem:
+
+"<span class="placeholder">[paste your rough problem here]</span>"
+
+Help me sharpen this into a clear problem statement using this format:
+
+[User type] needs a way to [action] because [pain point].
+
+Give me 3 versions — one broad, one narrow, one surprising. For each, tell me who exactly the user is and what success looks like for them.</div>
+    </div>
+  </div>
+
+  <div class="pro-tip">
+    <div class="pro-tip-label">★ Pro Tip</div>
+    <p>Pick the <strong>narrowest</strong> version of the problem. In a hackathon, a focused product that does one thing brilliantly beats a vague product that does five things badly. You can always expand scope later — you can never get back wasted time.</p>
+  </div>
+</section>
+
+
+<!-- =================== STEP 2: SOLUTION =================== -->
+<section class="section" id="step2">
+  <div class="section-number">Step 02 — Design</div>
+  <h2>Solutioning with AI</h2>
+  <p class="section-intro">This is where AI becomes your design partner. You don't need Figma. You don't need a design background. You need good prompts. Here's exactly what to ask, in what order.</p>
+
+  <div class="time-badge">⏱ 45–60 minutes</div>
+
+  <!-- PROMPT A -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-prompt">Prompt A</span>
+    </div>
+    <h3>Generate User Flow</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 12px;">Start with how the user moves through your product, not what it looks like. Flow first, visuals later.</p>
+    <div class="prompt-wrap">
+    <div class="prompt-title-bar">
+      <div class="prompt-title-left">
+        <div class="prompt-title-icon">⌘</div>
+        <span class="prompt-title-text">Copy this prompt → Paste into AI</span>
+      </div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-block">I'm designing a product for this problem:
+
+"<span class="placeholder">[paste your problem statement]</span>"
+
+Map out the simplest user flow — from the moment the user opens the product to the moment their problem is solved.
+
+Rules:
+- Maximum 5–7 screens/steps
+- Each step should be one clear action
+- Name each screen (e.g., "Dashboard", "Upload", "Results")
+- Show me the happy path only — no edge cases yet
+
+Format as a numbered list with arrows showing the flow.</div>
+    </div>
+
+    <div class="pro-tip">
+      <div class="pro-tip-label">★ Pro Tip</div>
+      <p>If AI gives you more than 7 steps, your product is too complex for a hackathon. Ask it: <em>"This is too many steps. Combine or cut until it's 5 screens maximum. What can I remove without breaking the core experience?"</em></p>
+    </div>
+  </div>
+
+  <!-- PROMPT B -->
+  <div class="card" style="border: 1px solid rgba(92, 171, 255, 0.25); background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(92, 171, 255, 0.04) 100%);">
+    <div class="card-header">
+      <span class="card-badge badge-prompt">Prompt B</span>
+      <span class="card-badge" style="background: var(--blue-glow); color: var(--blue);">Think Before You Build</span>
+    </div>
+    <h3>Brief Each Screen</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">This step creates the brief that powers Prompt C. Think of it like giving a builder an architect's drawing before they start construction — without it, they're guessing.</p>
+
+    <div class="warning" style="background: rgba(92, 171, 255, 0.06); border-color: rgba(92, 171, 255, 0.2); margin-bottom: 20px;">
+      <div class="warning-label" style="color: var(--blue);">Why Not Skip Straight to Code?</div>
+      <p>When you ask AI to generate a full screen from a vague description, it has to figure out <em>what</em> to build and <em>how</em> it looks at the same time — and it does both badly. This 2-minute prompt separates those decisions. You tell AI what goes on the screen. Then in Prompt C, it focuses entirely on making it look and work right. The result is dramatically better, and you'll spend less time going back and forth fixing things.</p>
+    </div>
+
+    <p style="color: var(--text-primary); margin-bottom: 8px; font-weight: 600;">Run this for each screen from your user flow (Prompt A). It takes about 2 minutes per screen.</p>
+
+    <div class="prompt-wrap">
+    <div class="prompt-title-bar">
+      <div class="prompt-title-left">
+        <div class="prompt-title-icon">⌘</div>
+        <span class="prompt-title-text">Copy this prompt → Paste into AI</span>
+      </div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-block">Now design the <span class="placeholder">[screen name, e.g., "Dashboard"]</span> screen for this product.
+
+Context:
+- Problem: "<span class="placeholder">[problem statement]</span>"
+- What the user just did: <span class="placeholder">[previous step]</span>
+- What they need to do here: <span class="placeholder">[action on this screen]</span>
+- What happens next: <span class="placeholder">[next step]</span>
+
+Design system — you MUST follow our internal design system "Pokedesk":
+<span class="placeholder">[paste the relevant Pokedesk tokens/specs here — colours, typography, spacing, component names, button styles, etc. Even a screenshot of the guidelines page works.]</span>
+
+Give me:
+1. A layout description (what goes where — top, middle, bottom) using Pokedesk components where they exist (e.g., use the Pokedesk button, card, input, and nav components rather than inventing new ones)
+2. The main UI elements — map each to its Pokedesk component name if possible
+3. Exact text for headings, buttons, and labels
+4. One micro-interaction that makes it feel polished (e.g., animation, loading state, confirmation)
+
+If a component I need doesn't exist in Pokedesk, flag it and suggest a design that feels consistent with the system.
+
+Keep it simple. This is a hackathon — no unnecessary features.</div>
+    </div>
+
+    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 16px; line-height: 1.6;"><strong>What you'll get back:</strong> A plain-English description of your screen — what goes where, which components to use, and what the copy says. It's not code yet. <strong style="color: var(--blue);">Save this output — you'll paste it directly into Prompt C to generate the actual UI. ↓</strong></p>
+  </div>
+
+  <div class="pro-tip">
+    <div class="pro-tip-label">★ Pro Tip — Feeding Pokedesk to AI</div>
+    <p>AI can't access Pokedesk directly, so you need to give it context. The easiest ways: <strong>(1)</strong> Copy-paste the colour tokens, type scale, and spacing values from the Pokedesk docs straight into your prompt. <strong>(2)</strong> Take a screenshot of an existing Pokedesk screen and upload it — AI can match the visual style. <strong>(3)</strong> Paste the CSS variables or Tailwind config from Pokedesk. The more you give it, the closer the output will match. Even a quick list like <em>"Primary: #1A73E8, Border radius: 8px, Font: Inter, Spacing unit: 8px"</em> makes a massive difference.</p>
+  </div>
+
+  <div class="warning">
+    <div class="warning-label">⚠ Why Pokedesk Matters</div>
+    <p>Using Pokedesk isn't just about looking consistent — it <strong>saves you time</strong>. Instead of debating colours, fonts, and button styles, you use what already exists. That's fewer decisions, faster builds, and a product that looks like it belongs to our ecosystem. Judges will notice.</p>
+  </div>
+
+  <!-- CONNECTOR: B → C -->
+  <div style="text-align: center; padding: 24px 0;">
+    <div style="font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 8px;">Prompt B output becomes Prompt C input</div>
+    <div style="font-size: 32px; color: var(--blue);">↓</div>
+  </div>
+
+  <!-- PROMPT C -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-prompt">Prompt C</span>
+    </div>
+    <h3>Generate the Visual UI</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 12px;">Now take the screen brief from Prompt B and turn it into actual code. AI already knows <em>what</em> to build — this prompt tells it <em>how</em>.</p>
+    <div class="prompt-wrap">
+    <div class="prompt-title-bar">
+      <div class="prompt-title-left">
+        <div class="prompt-title-icon">⌘</div>
+        <span class="prompt-title-text">Copy this prompt → Paste into AI</span>
+      </div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-block">Build me a working HTML page for this screen:
+
+<span class="placeholder">[paste the screen brief you got back from Prompt B — the layout description, components, copy, and interaction]</span>
+
+Design system — follow our "Pokedesk" design system:
+<span class="placeholder">[paste Pokedesk CSS variables, colour tokens, or component specs here]</span>
+
+Requirements:
+- Use the exact Pokedesk colours, fonts, border-radius, and spacing values
+- Match Pokedesk component styles (buttons, inputs, cards, nav) as closely as possible
+- Mobile-friendly
+- Use real content, not "Lorem ipsum"
+- Include the micro-interaction we discussed
+- All CSS inline or in a style tag — single file, no dependencies
+
+This is a hackathon prototype — it should look real but doesn't need a backend. Fake the data.</div>
+    </div>
+
+    <div class="pro-tip">
+      <div class="pro-tip-label">★ Best Practice — The Layered Prompt</div>
+      <p>Don't ask AI to design the whole app at once. Go in layers: <strong>flow → structure → visual → polish</strong>. Each prompt builds on the last. This gives you far better results than dumping everything in one giant prompt. Think of it like talking to a junior designer — give clear, specific instructions one step at a time.</p>
+    </div>
+  </div>
+
+  <!-- REVIEW / CRIT -->
+  <div class="card" style="border: 1px solid rgba(254, 142, 170, 0.25); background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(254, 142, 170, 0.04) 100%);">
+    <div class="card-header">
+      <span class="card-badge" style="background: var(--pink-glow); color: var(--pink);">Design Crit</span>
+    </div>
+    <h3>Review — Is This Actually Good?</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">Before you polish anything, pause and check whether the design actually works. AI can generate beautiful screens that completely fail the user. This 10-minute crit catches those problems before you waste time polishing the wrong thing.</p>
+
+    <div class="time-badge">⏱ 10 minutes</div>
+
+    <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 16px; margin-top: 20px;">The 6-Point Gut Check</p>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">As a team, open your screen and answer each question honestly. If you answer "no" to any of them, fix it before moving on.</p>
+
+    <div class="step-row">
+      <div class="step-num" style="background: var(--pink-glow); color: var(--pink);">1</div>
+      <div class="step-content">
+        <h4>Can you tell what this product does in 5 seconds?</h4>
+        <p>Cover everything except the main screen. Show it to a teammate for 5 seconds. If they can't say what it does — your hierarchy or messaging is off.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background: var(--pink-glow); color: var(--pink);">2</div>
+      <div class="step-content">
+        <h4>Is the primary action obvious?</h4>
+        <p>Every screen should have ONE thing you want the user to do. Can you point to it immediately? If there are two things competing for attention, one needs to be demoted.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background: var(--pink-glow); color: var(--pink);">3</div>
+      <div class="step-content">
+        <h4>Does it follow Pokedesk?</h4>
+        <p>Check colours, fonts, spacing, and component styles against Pokedesk. AI often drifts from the design system — especially on border-radius, button styles, and colour shades. Compare side by side.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background: var(--pink-glow); color: var(--pink);">4</div>
+      <div class="step-content">
+        <h4>Is there anything you can remove?</h4>
+        <p>Look at every element on screen and ask: "If I deleted this, would the user still succeed?" If yes — delete it. Less is almost always better in a hackathon.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background: var(--pink-glow); color: var(--pink);">5</div>
+      <div class="step-content">
+        <h4>Does the flow make sense end to end?</h4>
+        <p>Click through every screen in order. Does each step feel like the logical next thing? Are there any dead ends or confusing jumps? The story should feel inevitable.</p>
+      </div>
+    </div>
+    <div class="step-row" style="margin-bottom: 0;">
+      <div class="step-num" style="background: var(--pink-glow); color: var(--pink);">6</div>
+      <div class="step-content">
+        <h4>Can everyone use it?</h4>
+        <p>Accessibility isn't a nice-to-have — it's how you make sure your product actually works for everyone. Even seasoned designers miss this. Do a quick check: Is your text readable against its background? (aim for 4.5:1 contrast ratio). Can you navigate the whole screen using only a keyboard — Tab, Enter, Escape? Do images and icons have text alternatives? Are clickable areas large enough to tap comfortably (at least 44×44px)? Does the design still make sense without colour alone (think colour blindness)?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border: 1px solid rgba(92, 171, 255, 0.25); background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(92, 171, 255, 0.04) 100%);">
+    <div class="card-header">
+      <span class="card-badge" style="background: var(--blue-glow); color: var(--blue);">Accessibility</span>
+    </div>
+    <h3>The Hackathon A11y Cheat Sheet</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 20px;">You don't need to be an accessibility expert. You just need to not ship the five most common mistakes AI-generated UIs make. Here's the quick-fix list:</p>
+
+    <div class="grid-2">
+      <div style="margin-bottom: 16px;">
+        <p style="color: var(--blue); font-weight: 600; font-size: 14px; margin-bottom: 4px;">Colour Contrast</p>
+        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">AI loves light grey text on white. Check yours at <strong>webaim.org/resources/contrastchecker</strong> — body text needs a 4.5:1 ratio minimum. If it fails, just make the text darker.</p>
+      </div>
+      <div style="margin-bottom: 16px;">
+        <p style="color: var(--blue); font-weight: 600; font-size: 14px; margin-bottom: 4px;">Keyboard Navigation</p>
+        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">Put your mouse away. Press Tab through the page. Can you reach every button, link, and input? Can you tell which element is focused? If not, add <strong>:focus-visible</strong> styles and check your tab order.</p>
+      </div>
+      <div style="margin-bottom: 16px;">
+        <p style="color: var(--blue); font-weight: 600; font-size: 14px; margin-bottom: 4px;">Text Alternatives</p>
+        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">Every image needs an <strong>alt</strong> attribute. Every icon-only button needs an <strong>aria-label</strong>. If a screen reader can't tell what something is, neither can a lot of your users.</p>
+      </div>
+      <div style="margin-bottom: 16px;">
+        <p style="color: var(--blue); font-weight: 600; font-size: 14px; margin-bottom: 4px;">Touch Targets</p>
+        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">Buttons and links should be at least <strong>44×44 pixels</strong>. AI tends to generate tiny icon buttons — make them bigger. Your thumb isn't a pixel-precise pointer.</p>
+      </div>
+      <div style="margin-bottom: 0;">
+        <p style="color: var(--blue); font-weight: 600; font-size: 14px; margin-bottom: 4px;">Don't Rely on Colour Alone</p>
+        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">If red means "error" and green means "success", add an icon or text label too. About 8% of men are colour blind — that's likely someone on your hackathon floor right now.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge" style="background: var(--pink-glow); color: var(--pink);">Crit Prompt</span>
+    </div>
+    <h3>AI Design Review</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 12px;">Use AI as a second pair of eyes. Paste your screen code and let it find what you might have missed.</p>
+    <div class="prompt-wrap">
+    <div class="prompt-title-bar">
+      <div class="prompt-title-left">
+        <div class="prompt-title-icon">⌘</div>
+        <span class="prompt-title-text">Copy this prompt → Paste into AI</span>
+      </div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-block">You are a senior product designer reviewing a hackathon prototype. Be honest and constructive — like a design crit, not a compliment session.
+
+Here's the screen I built:
+
+<span class="placeholder">[paste your HTML/code or describe the screen]</span>
+
+The product solves this problem:
+"<span class="placeholder">[problem statement]</span>"
+
+Review it against these criteria and give me a score (pass / needs work / fail) for each:
+
+1. CLARITY — Can a new user understand what this does and what to do first within 5 seconds?
+2. FOCUS — Is there one clear primary action per screen, or are things competing for attention?
+3. CONSISTENCY — Does the UI feel like it belongs to one coherent design system? Are colours, fonts, spacing, and components consistent?
+4. SIMPLICITY — Is there anything that can be removed without hurting the core experience?
+5. FLOW — Does the screen-to-screen journey feel logical and complete?
+6. ACCESSIBILITY — Check: colour contrast (4.5:1 minimum for text), keyboard navigability (can you Tab through everything?), text alternatives on images/icons, touch targets at least 44×44px, and that colour isn't the only way information is conveyed.
+
+For any "needs work" or "fail" — give me ONE specific, actionable fix. Not theory — tell me exactly what to change and show me the corrected code.</div>
+    </div>
+  </div>
+
+  <div class="pro-tip">
+    <div class="pro-tip-label">★ Pro Tip — Pair Crit</div>
+    <p>The best hackathon teams crit each other. Find another team, swap screens for 2 minutes, and give each other honest feedback using the 5-point checklist above. Fresh eyes catch things you've gone blind to. You don't need a designer — you need someone who hasn't been staring at the same screen for an hour.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PROMPT D -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-prompt">Prompt D</span>
+    </div>
+    <h3>Make It Feel Designed (Polish Pass)</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 12px;">The difference between "looks like a hackathon project" and "looks like a real product" is in the details. Run this prompt after your first version works.</p>
+    <div class="prompt-wrap">
+    <div class="prompt-title-bar">
+      <div class="prompt-title-left">
+        <div class="prompt-title-icon">⌘</div>
+        <span class="prompt-title-text">Copy this prompt → Paste into AI</span>
+      </div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-block">Review this UI code and improve the visual design quality. I want it to feel like a polished, shipped product — not a hackathon prototype.
+
+<span class="placeholder">[paste your current HTML/code]</span>
+
+Focus on:
+- Spacing and alignment consistency
+- Typography hierarchy (clear headings, readable body text)
+- Colour contrast and accessibility
+- Subtle shadows, borders, or effects that add depth
+- Empty states (what does it look like with no data?)
+- Loading states
+- One "delighter" — a small detail that makes someone say "oh, that's nice"
+
+Don't change the layout or functionality. Just make it look and feel better.</div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- =================== STEP 3: PROTOTYPE =================== -->
+<section class="section" id="step3">
+  <div class="section-number">Step 03 — Build</div>
+  <h2>Quick Prototype</h2>
+  <p class="section-intro">Turn your AI-designed screens into something people can actually click through. Don't build a backend — fake everything. The goal is something that looks and feels real enough to test.</p>
+
+  <div class="time-badge">⏱ 2–4 hours</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-prompt">AI Prompt</span>
+    </div>
+    <h3>Build a Clickable Prototype</h3>
+    <div class="prompt-wrap">
+    <div class="prompt-title-bar">
+      <div class="prompt-title-left">
+        <div class="prompt-title-icon">⌘</div>
+        <span class="prompt-title-text">Copy this prompt → Paste into AI</span>
+      </div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-block">Turn these screen designs into a working, clickable prototype.
+
+Screens:
+<span class="placeholder">[paste all your screen descriptions or code]</span>
+
+Requirements:
+- Single HTML file with all screens as sections
+- Navigation between screens using JavaScript (show/hide)
+- Fake but realistic data
+- Transitions between screens (simple fade or slide)
+- Mobile-responsive
+- Include a clear "start" state
+
+This should feel like a real app someone can click through on a phone during a demo.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="pro-tip">
+      <div class="pro-tip-label">★ Pro Tip</div>
+      <p><strong>Fake the AI.</strong> If your hackathon product uses AI, you don't need it working for the prototype. Hardcode the AI's response. Show what the output <em>would</em> look like. Judges care about the idea and the experience, not whether the API call is live.</p>
+    </div>
+    <div class="warning">
+      <div class="warning-label">⚠ Common Mistake</div>
+      <p><strong>Don't spend time on auth screens.</strong> No one cares about login during a demo. Start your prototype at the first useful screen. If you need to show "logged in", just hardcode a name in the header.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- =================== STEP 4: TEST =================== -->
+<section class="section" id="step4">
+  <div class="section-number">Step 04 — Test</div>
+  <h2>Test It</h2>
+  <p class="section-intro">Grab someone who isn't on your team. Show them the prototype. Shut up and watch. That's it. Three tests will reveal 80% of your design problems.</p>
+
+  <div class="time-badge">⏱ 30 minutes (3 tests × 10 min)</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-template">Script</span>
+    </div>
+    <h3>The 3-Minute Test Script</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">Say this to your tester, word for word:</p>
+    <div class="step-row">
+      <div class="step-num orange">1</div>
+      <div class="step-content">
+        <h4>Set Up (30 seconds)</h4>
+        <p>"I'm going to show you something we're building. I want you to think out loud — tell me what you see, what you'd click, and anything that confuses you. There are no wrong answers. You can't hurt my feelings."</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num blue">2</div>
+      <div class="step-content">
+        <h4>Task (2 minutes)</h4>
+        <p>"Imagine you're [describe the user]. Your goal is to [describe the main task]. Go ahead and try."</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num green">3</div>
+      <div class="step-content">
+        <h4>Observe (the whole time)</h4>
+        <p>Don't help. Don't explain. Don't say "oh you need to click there." If they're stuck, ask: "What are you looking for?" Write down where they hesitate, what they misunderstand, and what they ignore.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pro-tip">
+    <div class="pro-tip-label">★ Pro Tip</div>
+    <p><strong>The "5-second test"</strong> — show someone the main screen for 5 seconds, then hide it. Ask: "What is this product? What would you do first?" If they can't answer, your design isn't communicating clearly enough.</p>
+  </div>
+</section>
+
+
+<!-- =================== STEP 5: LEARN =================== -->
+<section class="section" id="step5">
+  <div class="section-number">Step 05 — Learn</div>
+  <h2>Learn &amp; Loop Back</h2>
+  <p class="section-intro">After testing, you'll have a short list of what's broken. Use AI to fix it fast — then test again. The more loops you do, the better your product gets.</p>
+
+  <div class="time-badge">⏱ 30 minutes per loop</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-prompt">AI Prompt</span>
+    </div>
+    <h3>Fix Based on Feedback</h3>
+    <div class="prompt-wrap">
+    <div class="prompt-title-bar">
+      <div class="prompt-title-left">
+        <div class="prompt-title-icon">⌘</div>
+        <span class="prompt-title-text">Copy this prompt → Paste into AI</span>
+      </div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-block">I tested my prototype with 3 people and here's what happened:
+
+<span class="placeholder">[paste your observations — be specific:
+- "2 out of 3 people didn't notice the submit button"
+- "Everyone tried to swipe but there's no swipe"
+- "One person said 'I don't know what this number means'"]</span>
+
+Here's my current design:
+<span class="placeholder">[paste code or description]</span>
+
+For each issue, suggest a specific design fix. Prioritise by impact — what's the smallest change that fixes the biggest problem? Then update the code.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-badge badge-template">Framework</span>
+    </div>
+    <h3>The Quick Debrief</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">After each test round, answer these three questions as a team:</p>
+    <div class="step-row">
+      <div class="step-num green">✓</div>
+      <div class="step-content">
+        <h4>What worked?</h4>
+        <p>What did people understand immediately? What felt natural? Keep these things.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num yellow">△</div>
+      <div class="step-content">
+        <h4>What confused people?</h4>
+        <p>Where did they pause, squint, or click the wrong thing? These are your top-priority fixes.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num purple">?</div>
+      <div class="step-content">
+        <h4>What surprised us?</h4>
+        <p>Did anyone use the product in a way you didn't expect? That's signal — it might reveal a better direction.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning">
+    <div class="warning-label">⚠ Remember</div>
+    <p>You don't need to fix everything. In a hackathon, fix the <strong>top 2–3 issues</strong> and move on. Perfection is the enemy of shipping. One tight loop of test → fix → test is worth more than four hours of polishing pixels nobody sees.</p>
+  </div>
+</section>
+
+
+<!-- =================== CHEAT SHEET =================== -->
+<section class="section" style="background: var(--bg-surface); border-radius: 0; max-width: none; padding-left: 0; padding-right: 0;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 48px;">
+    <div class="section-number">Quick Reference</div>
+    <h2>Your Hackathon Timeline</h2>
+    <p class="section-intro">A suggested breakdown for a 2-day hackathon. Adjust to your schedule, but protect testing time — it's the most valuable part.</p>
+
+    <div class="grid-2" style="margin-top: 32px;">
+      <div class="card" style="border-left: 3px solid var(--orange);">
+        <h3>Day 1 — Build</h3>
+        <div class="step-row">
+          <div class="step-num orange">1</div>
+          <div class="step-content"><h4>Problem Statement</h4><p>15 min — Align on one clear problem</p></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num blue">2</div>
+          <div class="step-content"><h4>AI Solutioning</h4><p>45–60 min — Flow + screen designs with AI</p></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num green">3</div>
+          <div class="step-content"><h4>Prototype</h4><p>3–4 hrs — Build the clickable thing</p></div>
+        </div>
+        <div class="step-row" style="margin-bottom:0">
+          <div class="step-num yellow">4</div>
+          <div class="step-content"><h4>First Test</h4><p>30 min — Test with 2–3 people before you leave</p></div>
+        </div>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--color-primary-60);">
+        <h3>Day 2 — Refine</h3>
+        <div class="step-row">
+          <div class="step-num purple">5</div>
+          <div class="step-content"><h4>Fix Top Issues</h4><p>1–2 hrs — Address biggest test findings</p></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num green">6</div>
+          <div class="step-content"><h4>Second Test</h4><p>30 min — Validate your fixes</p></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num blue">7</div>
+          <div class="step-content"><h4>Polish Pass</h4><p>1–2 hrs — Run Prompt D on final screens</p></div>
+        </div>
+        <div class="step-row" style="margin-bottom:0">
+          <div class="step-num orange">8</div>
+          <div class="step-content"><h4>Demo Prep</h4><p>1 hr — Script your demo story around the problem</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Built for hackers who design. <span>Go make something great.</span></p>
+</footer>
+
+<script>
+function copyPrompt(btn) {
+  const wrap = btn.closest('.prompt-wrap');
+  const block = wrap.querySelector('.prompt-block');
+  const clone = block.cloneNode(true);
+  let text = clone.textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.style.background = 'rgba(0, 175, 112, 0.2)';
+    btn.style.borderColor = '#00AF70';
+    btn.style.color = '#00AF70';
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.style.background = '';
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 1500);
+  });
+}
+</script>
+
+</body>
+</html>
